@@ -55,7 +55,7 @@ export function Hero() {
     <Spotlight
       as="section"
       id="top"
-      className="group/hero relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-[84px] pb-[max(24px,4svh)] sm:pt-[92px]"
+      className="group/hero relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-[84px] pb-[96px] sm:pt-[92px] md:pb-[max(24px,4svh)]"
     >
       {/* Backdrop: a slow drifting bloom, a grid that fades toward the edges,
           and a light that follows the pointer across it. */}
