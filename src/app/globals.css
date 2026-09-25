@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+/*
+ * Dark only. Two accents do two jobs: `--lime` is a fill that always carries
+ * dark text on top, `--accent` is the same colour used for type and hairlines.
+ * They are kept apart so either can be retuned without breaking the other.
+ * Mirrored for the Open Graph card in lib/theme.ts.
+ */
+:root {
+  --bg: #09090a;
+  --bg-2: #131315;
+  --surface: #101012;
+  --ink: #f3f3ee;
+  --ink-2: #a9a9a2;
+  --ink-3: #74746d;
+  --rule: #222225;
+  --rule-2: #313135;
+  --accent: #c6ff2e;
+  --accent-2: #dcff85;
+  --accent-soft: rgb(198 255 46 / 0.1);
+  --lime: #c6ff2e;
+  --on-lime: #0b0b0c;
+  --glow: rgb(198 255 46 / 0.16);
+  --ok: #5ce1a6;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rule-2: var(--rule-2);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
+  --color-lime: var(--lime);
+  --color-on-lime: var(--on-lime);
+  --color-ok: var(--ok);
+
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-instrument), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  --animate-rise-in: rise-in 0.9s cubic-bezier(0.2, 0.75, 0.3, 1) both;
+  --animate-char: char-up 1s cubic-bezier(0.19, 1, 0.22, 1) both;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-ping-soft: ping-soft 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-drift: drift 22s ease-in-out infinite alternate;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* Each letter of the name climbs out from behind its line's mask. */
+@keyframes char-up {
+  from { transform: translateY(105%) rotate(6deg); }
+  to { transform: none; }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes ping-soft {
+  75%, 100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes drift {
+  0% { transform: translate(-8%, -6%) scale(1); }
+  50% { transform: translate(10%, 4%) scale(1.15); }
+  100% { transform: translate(-2%, 10%) scale(0.95); }
+}
+
+/* Four words, each held for a beat and then pushed up by the next. */
+@keyframes cycle-4 {
+  0%, 20% { transform: translateY(0); }
+  25%, 45% { transform: translateY(-1lh); }
+  50%, 70% { transform: translateY(-2lh); }
+  75%, 95% { transform: translateY(-3lh); }
+  100% { transform: translateY(-4lh); }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+  }
+
+  ::selection {
+    background-color: var(--lime);
+    color: var(--on-lime);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background-color: var(--bg-2);
+    border-radius: 4px;
+    padding: 1px 4px;
+  }
+}
+
+@layer utilities {
+  .cycle-4 {
+    animation: cycle-4 10s cubic-bezier(0.7, 0, 0.2, 1) infinite;
+  }
+
+  /* Film grain over the whole page, so flat fills read as material. */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* A card's border and wash light up where the pointer is. SpotlightCard
+     writes --mx/--my; without JS the card simply never lights. */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 55%);
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* Scroll reveal. The resting state is visible; Reveal only hides elements
+     it has confirmed are below the fold, so the page reads with JS disabled. */
+  .reveal {
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.75, 0.3, 1),
+      transform 0.9s cubic-bezier(0.2, 0.75, 0.3, 1),
+      filter 0.9s cubic-bezier(0.2, 0.75, 0.3, 1);
+  }
+  .reveal-hidden {
+    opacity: 0;
+    transform: translateY(32px);
+    filter: blur(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    /* Without this a staggered inline animation-delay survives, and a
+       `both`-filled animation holds at its first frame for that long. */
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  /* The word cycle would otherwise jump straight to its end state. */
+  .cycle-4 {
+    animation: none !important;
+  }
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
