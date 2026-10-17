@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { DOMAINS, projects, type Domain } from "@/content/projects";
 import { Reveal } from "./Reveal";
 import { Figure } from "./Figure";
+import { GitHubIcon } from "./icons";
 import { Spotlight } from "./motion";
 
 type Filter = Domain | "all";
@@ -56,7 +57,7 @@ export function ProjectFilters() {
       <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,340px),1fr))] gap-5">
         {visible.map((project) => (
           <Reveal key={project.name} as="article" className="h-full">
-            <Spotlight className="spotlight group flex h-full flex-col overflow-hidden rounded-[28px] border border-rule bg-surface transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-rule-2">
+            <Spotlight className="spotlight group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-rule bg-surface transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-rule-2">
               <div className="p-2.5 pb-0">
                 <div className="overflow-hidden rounded-[20px] [&_img]:transition-transform [&_img]:duration-700 group-hover:[&_img]:scale-[1.04]">
                   <Figure
@@ -69,13 +70,27 @@ export function ProjectFilters() {
                   />
                 </div>
               </div>
+              {project.repo ? (
+                <a
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.name} on GitHub`}
+                  className="absolute top-5 right-5 z-10 flex size-9 items-center justify-center rounded-full border border-white/15 bg-bg/80 text-ink shadow-[0_8px_20px_-10px_rgb(0_0_0/0.9)] backdrop-blur-md transition-[background-color,color,border-color] duration-300 hover:border-lime hover:bg-lime hover:text-on-lime before:absolute before:-inset-1.5"
+                >
+                  <GitHubIcon className="size-4" />
+                </a>
+              ) : null}
               <div className="flex flex-1 flex-col gap-3 p-6 pt-4">
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="font-display text-[26px] leading-[1.1] font-bold tracking-[-0.035em]">{project.name}</h3>
-                  <span className="mt-1 flex-none rounded-full border border-rule-2 px-2.5 py-0.5 text-[12px] font-medium text-ink-3">
-                    {project.tech}
-                  </span>
-                </div>
+                <h3 className="font-display text-[26px] leading-[1.1] font-bold tracking-[-0.035em]">{project.name}</h3>
+                <p className="-mt-1.5 font-mono text-[12px] leading-none text-ink-3">
+                  {project.tech.split(" · ").map((part, index) => (
+                    <span key={index}>
+                      {index > 0 ? <span className="text-accent">{" · "}</span> : null}
+                      {part}
+                    </span>
+                  ))}
+                </p>
                 <p className="text-[15.5px] leading-[1.6] text-ink-2">{project.blurb}</p>
               </div>
             </Spotlight>

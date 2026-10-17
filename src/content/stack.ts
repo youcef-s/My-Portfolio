@@ -73,49 +73,50 @@ export const languages = [
 ];
 
 /**
- * The two scrolling bands under the hero, in a hand-set order: no two tools
- * from the same area sit side by side, including across the seam where each
- * loop wraps back to its start. Every name must also appear in a group above.
+ * The two scrolling bands under the hero. The lime band in front carries the
+ * advanced and familiar tools, with an advanced name between pairs of familiar
+ * ones. The band behind it carries the AI tools. Every name must also appear
+ * in a group above.
  */
 export const marquee = {
-  /** The lime band: the core stack and the AI tools, interleaved. */
+  /** The lime band in front: advanced and familiar. */
   front: [
     "Node.js",
-    "Cursor",
-    "TailwindCSS",
-    "OpenRouter",
-    "PostgreSQL",
-    "Claude Code",
-    "Next.js",
-    "Kiro",
-    "Docker",
-    "Codex",
-    "MongoDB",
-    "OpenCode",
-    "Nest.js",
-    "Antigravity",
-    "React.js",
-    "Grok Build",
-  ],
-  /** The band behind it: the familiar tools. */
-  back: [
     "Rust",
     "Kubernetes",
+    "Nest.js",
     "Vue.js",
     "TCP/IP",
+    "Next.js",
     "Python",
     "Stripe API",
+    "React.js",
     "Terraform",
     "C++",
+    "TailwindCSS",
     "LangChain",
     "Web security",
+    "Docker",
     "React Native",
     "Bash",
+    "PostgreSQL",
     "RabbitMQ",
     "Solidity",
+    "MongoDB",
     "Linux / sysadmin",
     "PayloadCMS",
     "C",
     "FastAPI",
+  ],
+  /** The band behind it: the AI tools. */
+  back: [
+    "Cursor",
+    "OpenRouter",
+    "Claude Code",
+    "Kiro",
+    "Codex",
+    "OpenCode",
+    "Antigravity",
+    "Grok Build",
   ],
 } as const satisfies { front: readonly TechName[]; back: readonly TechName[] };

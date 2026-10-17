@@ -1,8 +1,8 @@
 import { marquee } from "@/content/stack";
 
 /**
- * A tilted lime band of the core stack, crossed by a band of the familiar tools
- * running the other way. The track holds the list twice and slides by exactly half its
+ * A tilted lime band of the advanced and familiar stack, crossed by a band of
+ * the AI tools running the other way. The track holds the list twice and slides by exactly half its
  * width, so the loop has no seam. Decorative: the Stack section lists the same
  * tools as real content.
  */

@@ -16,9 +16,11 @@ export const DOMAINS = {
 export type Domain = keyof typeof DOMAINS;
 export type Project = {
   name: string;
-  /** Languages or platform, shown top-right on the card. */
+  /** Languages or platform, shown under the project name. */
   tech: string;
   blurb: string;
+  /** Repository, when one is public. Cards without one stay as they are. */
+  repo?: string;
   domains: Domain[];
   /** Every project carries one: a capture where there was a UI, a drawing where there was not. */
   figure: Figure;
@@ -29,6 +31,7 @@ export const projects: Project[] = [
   {
     name: "ft_transcendence",
     tech: "Backend · real time",
+    repo: "https://github.com/youssefachehboune/ft_transcendence",
     blurb:
       "A real time multiplayer Pong platform built as a team, where I owned the backend. OAuth2 login, two factor authentication, public, private and protected chat channels, direct messaging, and the APIs holding the game and the social layer together.",
     domains: ["web", "systems"],
@@ -41,6 +44,7 @@ export const projects: Project[] = [
   {
     name: "hypertube",
     tech: "Frontend · streaming",
+    repo: "https://github.com/zenon0777/HyperTube",
     blurb:
       "A video search and streaming site served by a BitTorrent player that downloads and plays at the same time. I built the frontend: authentication and account management, live search across sources, and a player that holds up on a phone.",
     domains: ["web"],
@@ -53,6 +57,7 @@ export const projects: Project[] = [
   {
     name: "webserv",
     tech: "C++98",
+    repo: "https://github.com/TooFatToKidnapp/webserv",
     blurb:
       "An HTTP/1.1 server with nothing underneath it. One non-blocking poll() loop over every socket, an NGINX-style config parser for virtual hosts, CGI execution, chunked transfer and file upload, all driven from a real browser.",
     domains: ["systems", "network", "cloud"],
@@ -65,6 +70,7 @@ export const projects: Project[] = [
   {
     name: "cub3d",
     tech: "C · MiniLibX",
+    repo: "https://github.com/youcef-s/cub3D-42-cursus",
     blurb:
       "A raycasting engine in the Wolfenstein lineage. DDA grid traversal, per-column texture mapping, a map parser that rejects anything malformed, and a render loop that stays smooth while the player turns.",
     domains: ["systems", "algo"],
@@ -75,20 +81,9 @@ export const projects: Project[] = [
     },
   },
   {
-    name: "minishell",
-    tech: "C",
-    blurb:
-      "A working shell: lexer, recursive-descent parser, pipelines, all four redirections, heredocs, environment expansion, builtins, job signals and an exit-status contract that matches bash where it matters.",
-    domains: ["systems"],
-    figure: {
-      kind: "diagram",
-      diagram: "minishell",
-      alt: "A command line passing through lexer, parser and expansion, then forking into two processes joined by a pipe, with the last stage redirected to a file.",
-    },
-  },
-  {
     name: "Inception-of-Things",
     tech: "k3s · Argo CD",
+    repo: "https://github.com/msaouab/Inception-Of-Things",
     blurb:
       "Kubernetes from the developer's side. Multi-node k3s clusters provisioned by Vagrant, host-based Ingress routing, and a GitOps pipeline where Argo CD reconciles the running app against a Git repository.",
     domains: ["cloud", "network", "systems"],
@@ -101,6 +96,7 @@ export const projects: Project[] = [
   {
     name: "ft_nmap",
     tech: "C · libpcap",
+    repo: "https://github.com/yismaili/ft_nmap",
     blurb:
       "A port scanner that writes its own packets. SYN, NULL, FIN, XMAS, ACK and UDP scans, raw socket construction, and a thread pool dividing the port range across workers.",
     domains: ["network", "security"],
@@ -113,6 +109,7 @@ export const projects: Project[] = [
   {
     name: "taskmaster",
     tech: "Process control",
+    repo: "https://github.com/alouzizi/Taskmaster-42",
     blurb:
       "A supervisor-class process manager: declarative config, restart policies, graceful stop signals with timeouts, per-process log redirection, and a control shell that reloads the config without dropping running jobs.",
     domains: ["systems"],
@@ -120,6 +117,95 @@ export const projects: Project[] = [
       kind: "diagram",
       diagram: "taskmaster",
       alt: "A process lifecycle cycling through stopped, running, exited and restart, with a separate path for reloading configuration without dropping running children.",
+    },
+  },
+  {
+    name: "Tokenizer & TokenizeArt",
+    tech: "Solidity",
+    repo: "https://github.com/youcef-s/TokenizeArt-42cursus",
+    blurb:
+      "An ERC-20 token and an ERC-721 NFT collection written, tested and deployed to a public chain, with on-chain metadata and a documented deployment path a stranger can reproduce.",
+    domains: ["web3"],
+    figure: {
+      kind: "diagram",
+      diagram: "token",
+      alt: "An ERC-20 fungible token and an ERC-721 one-of-one token both deployed to a public testnet from verified, reproducible source.",
+    },
+  },
+  {
+    name: "matt-daemon",
+    tech: "C++",
+    repo: "https://github.com/alouzizi/Matt_daemon",
+    blurb:
+      "A properly daemonised TCP service: fork/setsid detachment, a single-instance lock file, one client at a time, a small command interpreter and a complete activity log.",
+    domains: ["systems", "network"],
+    figure: {
+      kind: "diagram",
+      diagram: "mattDaemon",
+      alt: "A parent process forking a child that calls setsid to become a session leader while the parent exits, leaving a locked single-instance TCP listener with no controlling terminal.",
+    },
+  },
+  {
+    name: "swifty-companion",
+    tech: "React Native · Expo",
+    repo: "https://github.com/youcef-s/Swifty-Companion-42Cursus",
+    blurb:
+      "An Expo client for the 42 API. OAuth2 authorisation, a refresh path that recovers from an expired token without sending the user back to a login screen, student lookup and the skill breakdown the API returns.",
+    domains: ["mobile"],
+    figure: {
+      kind: "diagram",
+      diagram: "swifty",
+      alt: "An OAuth2 flow from the app through the 42 authorisation server to a token and the v2 API, with a dashed path showing an expired token being refreshed after a 401, and the skill levels the API returns.",
+    },
+  },
+  {
+    name: "boot2root",
+    tech: "Privilege escalation",
+    repo: "https://github.com/yismaili/Boot2root",
+    blurb:
+      "A team assault on a hardened ISO. Enumerate services, chain the weaknesses, escalate to root, then write up every path that worked and why it existed.",
+    domains: ["security"],
+    figure: {
+      kind: "diagram",
+      diagram: "boot2root",
+      alt: "A chain from service enumeration to foothold to pivot to root, with the written report of every working path as the actual deliverable.",
+    },
+  },
+  {
+    name: "ft_containers",
+    tech: "C++98 templates",
+    repo: "https://github.com/youcef-s/ft_containers_42_cursus",
+    blurb:
+      "vector, map, set and stack rebuilt to the standard, with iterator hierarchies, allocators, SFINAE type traits, and a red-black tree keeping the ordered containers balanced.",
+    domains: ["algo", "systems"],
+    figure: {
+      kind: "diagram",
+      diagram: "ftContainers",
+      alt: "A balanced red-black tree of seven nodes with alternating red and black levels, the structure that keeps ordered container lookup logarithmic.",
+    },
+  },
+  {
+    name: "cloud-1",
+    tech: "Deployment · Terraform",
+    blurb:
+      "A multi-service application put onto cloud infrastructure the way it would actually ship, with provisioning, TLS, persistent storage and a scripted setup that rebuilds the whole thing from nothing.",
+    domains: ["cloud"],
+    figure: {
+      kind: "diagram",
+      diagram: "cloud",
+      alt: "A provisioning script building an instance, terminating TLS, running the services behind a reverse proxy and attaching a persistent volume, so the stack can be rebuilt from nothing.",
+    },
+  },
+  {
+    name: "minishell",
+    tech: "C language",
+    blurb:
+      "A working shell: lexer, recursive-descent parser, pipelines, all four redirections, heredocs, environment expansion, builtins, job signals and an exit-status contract that matches bash where it matters.",
+    domains: ["systems"],
+    figure: {
+      kind: "diagram",
+      diagram: "minishell",
+      alt: "A command line passing through lexer, parser and expansion, then forking into two processes joined by a pipe, with the last stage redirected to a file.",
     },
   },
   {
@@ -159,18 +245,6 @@ export const projects: Project[] = [
     },
   },
   {
-    name: "ft_containers",
-    tech: "C++98 templates",
-    blurb:
-      "vector, map, set and stack rebuilt to the standard, with iterator hierarchies, allocators, SFINAE type traits, and a red-black tree keeping the ordered containers balanced.",
-    domains: ["algo", "systems"],
-    figure: {
-      kind: "diagram",
-      diagram: "ftContainers",
-      alt: "A balanced red-black tree of seven nodes with alternating red and black levels, the structure that keeps ordered container lookup logarithmic.",
-    },
-  },
-  {
     name: "Philosophers",
     tech: "C · pthreads",
     blurb:
@@ -192,30 +266,6 @@ export const projects: Project[] = [
       kind: "diagram",
       diagram: "ftSsl",
       alt: "A message padded to a multiple of 512 bits, split into blocks that feed forward through compression rounds into a final digest.",
-    },
-  },
-  {
-    name: "Tokenizer & TokenizeArt",
-    tech: "Solidity",
-    blurb:
-      "An ERC-20 token and an ERC-721 NFT collection written, tested and deployed to a public chain, with on-chain metadata and a documented deployment path a stranger can reproduce.",
-    domains: ["web3"],
-    figure: {
-      kind: "diagram",
-      diagram: "token",
-      alt: "An ERC-20 fungible token and an ERC-721 one-of-one token both deployed to a public testnet from verified, reproducible source.",
-    },
-  },
-  {
-    name: "matt-daemon",
-    tech: "C++",
-    blurb:
-      "A properly daemonised TCP service: fork/setsid detachment, a single-instance lock file, one client at a time, a small command interpreter and a complete activity log.",
-    domains: ["systems", "network"],
-    figure: {
-      kind: "diagram",
-      diagram: "mattDaemon",
-      alt: "A parent process forking a child that calls setsid to become a session leader while the parent exits, leaving a locked single-instance TCP listener with no controlling terminal.",
     },
   },
   {
@@ -255,18 +305,6 @@ export const projects: Project[] = [
     },
   },
   {
-    name: "swifty-companion",
-    tech: "React Native · Expo",
-    blurb:
-      "An Expo client for the 42 API. OAuth2 authorisation, a refresh path that recovers from an expired token without sending the user back to a login screen, student lookup and the skill breakdown the API returns.",
-    domains: ["mobile"],
-    figure: {
-      kind: "diagram",
-      diagram: "swifty",
-      alt: "An OAuth2 flow from the app through the 42 authorisation server to a token and the v2 API, with a dashed path showing an expired token being refreshed after a 401, and the skill levels the API returns.",
-    },
-  },
-  {
     name: "Mobile piscine",
     tech: "React Native · Expo",
     blurb:
@@ -280,7 +318,7 @@ export const projects: Project[] = [
   },
   {
     name: "push_swap",
-    tech: "C",
+    tech: "C language",
     blurb:
       "Sort a stack using eleven permitted instructions and as few moves as possible. A chunked radix strategy that clears the top grading threshold on 500 random integers.",
     domains: ["algo"],
@@ -288,18 +326,6 @@ export const projects: Project[] = [
       kind: "diagram",
       diagram: "pushSwap",
       alt: "Two stacks with values moving between them in chunks, beside the eleven permitted instructions and the move budget the solution has to beat.",
-    },
-  },
-  {
-    name: "cloud-1",
-    tech: "Deployment · Terraform",
-    blurb:
-      "A multi-service application put onto cloud infrastructure the way it would actually ship, with provisioning, TLS, persistent storage and a scripted setup that rebuilds the whole thing from nothing.",
-    domains: ["cloud"],
-    figure: {
-      kind: "diagram",
-      diagram: "cloud",
-      alt: "A provisioning script building an instance, terminating TLS, running the services behind a reverse proxy and attaching a persistent volume, so the stack can be rebuilt from nothing.",
     },
   },
   {
@@ -312,18 +338,6 @@ export const projects: Project[] = [
       kind: "diagram",
       diagram: "ftShield",
       alt: "A dropped binary daemonising, reinstalling itself at boot and exposing an authenticated remote shell, drawn to show what a defender would look for.",
-    },
-  },
-  {
-    name: "boot2root",
-    tech: "CTF",
-    blurb:
-      "A team assault on a hardened ISO. Enumerate services, chain the weaknesses, escalate to root, then write up every path that worked and why it existed.",
-    domains: ["security"],
-    figure: {
-      kind: "diagram",
-      diagram: "boot2root",
-      alt: "A chain from service enumeration to foothold to pivot to root, with the written report of every working path as the actual deliverable.",
     },
   },
   {
