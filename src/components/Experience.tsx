@@ -1,10 +1,39 @@
-import { experience, roleYears } from "@/content/experience";
+import { experience, roleYears, type Role } from "@/content/experience";
 import { CompanyLink } from "./CompanyLink";
+import { Logo } from "./logos";
 import { RailFill, Spotlight } from "./motion";
 import { Reveal } from "./Reveal";
 import { Section } from "./Section";
 import { ReviewSample } from "./ReviewSample";
 import { ShotReveal } from "./ShotReveal";
+
+/** The employer, with its mark when it has one. The underline stays on the name. */
+function Employer({ role }: { role: Role }) {
+  const name = (
+    <span
+      className={
+        role.href
+          ? "underline decoration-dotted decoration-from-font underline-offset-[4px] group-hover/name:decoration-solid"
+          : undefined
+      }
+    >
+      {role.company}
+    </span>
+  );
+  const inner = (
+    <>
+      {role.logo ? <Logo name={role.logo} className="size-[0.72em] shrink-0" /> : null}
+      {name}
+    </>
+  );
+  const className = "inline-flex items-center gap-[0.28em]";
+  if (!role.href) return <span className={className}>{inner}</span>;
+  return (
+    <a href={role.href} target="_blank" rel="noopener noreferrer" className={`group/name ${className}`}>
+      {inner}
+    </a>
+  );
+}
 
 export function Experience() {
   return (
@@ -47,20 +76,18 @@ export function Experience() {
               </div>
 
               <Spotlight className="spotlight rounded-[28px] border border-rule bg-surface p-[clamp(22px,3vw,36px)] transition-colors hover:border-rule-2">
-                <h3 className="font-display text-[clamp(26px,3.2vw,40px)] leading-[1.05] font-bold tracking-[-0.035em]">
-                  <CompanyLink href={role.href}>{role.company}</CompanyLink>
-                </h3>
-                <p className="mt-2 text-[16px] font-medium text-accent">
-                  {role.title}
+                <h3 className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 font-display text-[clamp(26px,3.2vw,40px)] leading-[1.05] font-bold tracking-[-0.035em]">
+                  <Employer role={role} />
                   {role.parent ? (
-                    <span className="font-normal text-ink-3">
-                      {" "}· part of{" "}
-                      <CompanyLink href={role.parent.href} className="inline-block -my-[5px] py-[5px] text-ink-2">
+                    <span className="inline-flex items-center gap-[0.4em] font-sans text-[15px] font-normal tracking-normal text-ink-3">
+                      part of
+                      <CompanyLink href={role.parent.href} logo={role.parent.logo} className="text-ink-2">
                         {role.parent.name}
                       </CompanyLink>
                     </span>
                   ) : null}
-                </p>
+                </h3>
+                <p className="mt-2 text-[16px] font-medium text-accent">{role.title}</p>
 
                 <ul className="mt-6 grid gap-3">
                   {role.highlights.map((line) => (

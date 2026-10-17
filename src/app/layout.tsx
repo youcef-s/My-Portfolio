@@ -60,6 +60,19 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
+/** Search engines read this; the page already shows the same facts. */
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: fullName,
+  jobTitle: profile.title,
+  url: profile.url,
+  email: profile.links.find((link) => link.icon === "mail")?.href.replace(/^mailto:/, ""),
+  telephone: profile.links.find((link) => link.icon === "phone")?.href.replace(/^tel:/, ""),
+  homeLocation: { "@type": "Place", name: profile.location },
+  sameAs: profile.links.flatMap((link) => (link.href.startsWith("https://") ? [link.href] : [])),
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -67,6 +80,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${bricolage.variable} ${instrument.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="grain flex min-h-full flex-col font-sans text-base leading-[1.6]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
         <Analytics />
         <SpeedInsights />

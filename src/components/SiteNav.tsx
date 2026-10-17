@@ -87,6 +87,8 @@ export function SiteNav() {
 
           <a
             href={profile.resumePath}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`group flex h-12 items-center gap-2 rounded-full border px-5 text-[14px] font-medium backdrop-blur-xl transition-colors duration-500 hover:border-lime hover:bg-lime hover:text-on-lime ${
               stuck ? "border-rule bg-surface/75" : "border-rule-2"
             }`}

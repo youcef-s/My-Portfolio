@@ -51,6 +51,5 @@ export const navSections = [
   { id: "curriculum", label: "Curriculum" },
   { id: "awards", label: "Awards" },
   { id: "stack", label: "Stack" },
-  /** Links past the section to the end of the page, so the whole card shows. */
-  { id: "contact", label: "Contact", href: "#say-hello" },
+  { id: "contact", label: "Contact" },
 ] as const;

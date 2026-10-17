@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { awards } from "@/content/awards";
+import { Logo } from "./logos";
 import { Spotlight } from "./motion";
 import { Reveal } from "./Reveal";
 import { Section } from "./Section";
@@ -27,7 +28,22 @@ export function Awards() {
                   {award.title}
                 </h3>
                 <p className="mt-5 max-w-[58ch] text-[16.5px] leading-[1.65] text-ink-2">{award.body}</p>
-                <p className="mt-4 text-[14px] text-ink-3">{award.source}</p>
+                <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-[14px] text-ink-3">
+                  <a
+                    href={award.source.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={award.source.label ?? award.source.name}
+                    className="group/source inline-flex items-center gap-2 text-ink-2 transition-colors hover:text-ink"
+                  >
+                    {award.source.logo ? <Logo name={award.source.logo} className="h-[15px] w-auto" /> : null}
+                    <span className="underline decoration-dotted decoration-from-font underline-offset-[3px] group-hover/source:decoration-solid">
+                      {award.source.name}
+                    </span>
+                  </a>
+                  <span aria-hidden="true">·</span>
+                  <span>{award.source.detail}</span>
+                </p>
               </div>
 
               {award.photo ? (

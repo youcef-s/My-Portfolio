@@ -1,6 +1,7 @@
 import atjConsulting from "@/assets/atj-consulting.webp";
 import digieye from "@/assets/digieye.webp";
 import rlinks from "@/assets/rlinks.webp";
+import type { LogoName } from "@/components/logos";
 import type { ReviewSample } from "@/components/ReviewSample";
 import type { Figure } from "@/lib/screenshot";
 
@@ -8,8 +9,10 @@ export type Role = {
   company: string;
   /** Where the company name points. The company's own site when it has one, otherwise LinkedIn. */
   href?: string;
+  /** Omitted when the employer has no mark worth showing. */
+  logo?: LogoName;
   /** A second link when the employer sits under a parent company. */
-  parent?: { name: string; href: string };
+  parent?: { name: string; href: string; logo?: LogoName };
   title: string;
   /** Rendered in the left rail; keep to the `MM - MM.YYYY` shape for alignment. */
   period: string;
@@ -28,7 +31,8 @@ export const experience: Role[] = [
   {
     company: "DIGIEYE",
     href: "https://www.linkedin.com/company/iot-digieye/",
-    parent: { name: "ABA Technology", href: "https://aba.technology/" },
+    logo: "digieye",
+    parent: { name: "ABA Technology", href: "https://aba.technology/", logo: "aba" },
     title: "Full Stack Developer",
     period: "07 - 10.2025",
     place: "Casablanca",
@@ -67,7 +71,8 @@ export const experience: Role[] = [
   {
     company: "Outlier",
     href: "https://outlier.ai/",
-    parent: { name: "Scale AI", href: "https://scale.com/" },
+    logo: "outlier",
+    parent: { name: "Scale AI", href: "https://scale.com/", logo: "scale" },
     title: "Full Stack Software Engineer",
     period: "01 - 04.2025",
     place: "Remote",
@@ -97,6 +102,7 @@ export const experience: Role[] = [
   {
     company: "ATJ Consulting",
     href: "https://www.linkedin.com/company/atj-consulting-digital/",
+    logo: "atj",
     title: "Full Stack Developer",
     period: "11.2023 - 05.2024",
     place: "Remote",

@@ -7,7 +7,7 @@ type SectionProps = {
   label: string;
   /** The headline. Wrap a word in <em> to set it in the accent. */
   title: ReactNode;
-  note?: string;
+  note?: ReactNode;
   children: ReactNode;
 };
 

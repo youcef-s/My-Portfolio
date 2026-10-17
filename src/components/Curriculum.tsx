@@ -3,6 +3,7 @@ import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { stats } from "@/lib/stats";
 import { ChevronRightIcon } from "./icons";
+import { Logo } from "./logos";
 import { CurriculumTable } from "./CurriculumTable";
 import { CountUp, Spotlight } from "./motion";
 import { Reveal } from "./Reveal";
@@ -30,7 +31,35 @@ export function Curriculum() {
           Learned by <em>building</em>
         </>
       }
-      note={`1337 · UM6P · ${profile.campus} · since ${profile.enrolledSince}`}
+      note={
+        <span className="inline-flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+          <a
+            href="https://1337.ma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="1337"
+            title="1337"
+            className="text-ink transition-colors hover:text-accent"
+          >
+            <Logo name="1337" className="h-[15px] w-auto" />
+          </a>
+          <span aria-hidden="true">·</span>
+          <a
+            href="https://www.um6p.ma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="UM6P"
+            title="UM6P"
+            className="transition-opacity hover:opacity-75"
+          >
+            <Logo name="um6p" className="h-[18px] w-auto" />
+          </a>
+          <span aria-hidden="true">·</span>
+          <span>{profile.campus}</span>
+          <span aria-hidden="true">·</span>
+          <span>since {profile.enrolledSince}</span>
+        </span>
+      }
     >
       <Reveal className="mb-12 grid gap-4 sm:grid-cols-3">
         {tiles.map((tile) => (
@@ -49,7 +78,16 @@ export function Curriculum() {
 
       <Reveal className="mb-12 grid gap-x-12 gap-y-4 text-[17px] leading-[1.7] lg:grid-cols-2">
         <p className="text-ink-2">
-          1337 is part of the 42 Network: no lectures, no teachers, no syllabus. You are handed a
+          1337 is part of the{" "}
+          <a
+            href="https://www.42network.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-ink underline decoration-dotted decoration-from-font underline-offset-[3px] transition-colors hover:decoration-solid"
+          >
+            42 Network
+          </a>
+          : no lectures, no teachers, no syllabus. You are handed a
           subject and a deadline and work the rest out with the people around you, moving through{" "}
           {stats.levelMax} levels at your own pace. Every project is then defended in front of peers
           who have built the same thing, so passing means{" "}

@@ -2,6 +2,7 @@ import { languages, skillGroups } from "@/content/stack";
 import { Spotlight } from "./motion";
 import { Reveal } from "./Reveal";
 import { Section } from "./Section";
+import { TechIcon } from "./TechIcon";
 
 export function Stack() {
   return (
@@ -29,15 +30,20 @@ export function Stack() {
             </h3>
             <ul className="mt-5 flex flex-wrap gap-2">
               {group.items.map((item) => (
-                <li
-                  key={item}
-                  className={`rounded-full px-4 py-2 text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 ${
-                    group.emphasis
-                      ? "bg-ink text-bg hover:bg-lime hover:text-on-lime"
-                      : "border border-rule-2 text-ink-2 hover:border-ink hover:text-ink"
-                  }`}
-                >
-                  {item}
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1.5 rounded-full py-2 pl-3 pr-3.5 text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 ${
+                      group.emphasis
+                        ? "bg-ink text-bg hover:bg-lime hover:text-on-lime"
+                        : "border border-rule-2 text-ink-2 hover:border-ink hover:text-ink"
+                    }`}
+                  >
+                    <TechIcon name={item.name} className="size-4 shrink-0" />
+                    {item.name}
+                  </a>
                 </li>
               ))}
             </ul>

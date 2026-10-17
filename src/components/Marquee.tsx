@@ -7,7 +7,7 @@ import { marquee } from "@/content/stack";
  * tools as real content.
  */
 export function Marquee() {
-  const track = (items: string[], reverse: boolean, className: string) => (
+  const track = (items: readonly string[], reverse: boolean, className: string) => (
     <div aria-hidden="true" className={`flex overflow-hidden py-4 ${className}`}>
       <div
         className="flex w-max flex-none animate-marquee"
