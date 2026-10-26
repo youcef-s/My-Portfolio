@@ -18,7 +18,7 @@ export type CurriculumEntry = {
   counts?: number;
 };
 
-/** Transcribed from the official 1337 academic record, 07 June 2026. */
+/** Transcribed from the official 1337 academic record, 26 October 2026. */
 export const commonCore: CurriculumEntry[] = [
   { name: "Libft", kind: "C library", hours: 70, xp: 11, result: "bonus", validated: "Nov 2021" },
   { name: "get_next_line", kind: "C / I-O", hours: 55, xp: 21, result: "bonus", validated: "Nov 2021" },
@@ -61,8 +61,10 @@ export const advanced: CurriculumEntry[] = [
   { name: "ft_ssl_md5", kind: "Cryptography", hours: 49, xp: 225, result: "pass", validated: "Sep 2025" },
   { name: "taskmaster", kind: "Process supervision", hours: 98, xp: 225, result: "bonus", validated: "Sep 2025" },
   { name: "lem-ipc", kind: "System V IPC", hours: 98, xp: 225, result: "pass", validated: "Mar 2026" },
+  { name: "Mobile 04: Auth & database", kind: "Mobile piscine", hours: 7, xp: 47, result: "pass", validated: "Oct 2026" },
+  { name: "Mobile 05: Manage data & display", kind: "Mobile piscine", hours: 7, xp: 75, result: "pass", validated: "Oct 2026" },
   { name: "rubik", kind: "Algorithms", hours: 98, xp: 0, result: "wip", validated: "n/a" },
-  { name: "Mobile", kind: "React Native / Expo", hours: 63, xp: 0, result: "pass", validated: "2026" },
+  { name: "Mobile", kind: "React Native / Expo", hours: 63, xp: 0, result: "pass", validated: "Oct 2026" },
 ];
 
-export const level = { current: 19.79, max: 21 } as const;
+export const level = { current: 19.89, max: 21 } as const;
